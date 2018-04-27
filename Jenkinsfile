@@ -13,7 +13,7 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean compile'
             }
             post {
                 success {
@@ -25,24 +25,25 @@ stages{
 
         stage('Code Analysis'){
             steps {
-                echo 'Code Analysis needs to be moved here.'
+                sh 'mvn checkstyle:checkstyle findbugs:findbugs pmd:pmd'
             }
         }
         stage('Unit Test'){
             steps {
-                echo 'Unit Test needs to be moved here.'
+                sh 'mvn test'
             }
         }
 
         stage ('Deploy'){
             steps {
+                sh 'mvn package'
                 sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-staging/webapps"
                 sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-prod/webapps"
             }
         }
         stage('Integrations Test'){
             steps {
-                echo 'Integrations Test needs to be moved here.'
+                sh 'mvn verify'
             }
         }
     }
