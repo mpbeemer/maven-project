@@ -24,8 +24,10 @@ stages{
         }
 
         stage('Code Analysis'){
+            echo 'Code Analysis needs to be moved here.'
         }
         stage('Unit Test'){
+            echo 'Unit Test needs to be moved here.'
         }
 
         stage ('Deploy'){
@@ -33,6 +35,9 @@ stages{
                 sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-staging/webapps"
                 sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-prod/webapps"
             }
+        }
+        stage('Integrations Test'){
+            echo 'Integrations Test needs to be moved here.'
         }
     }
 }
