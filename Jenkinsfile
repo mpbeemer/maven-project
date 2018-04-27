@@ -24,10 +24,14 @@ stages{
         }
 
         stage('Code Analysis'){
-            echo 'Code Analysis needs to be moved here.'
+            steps {
+                echo 'Code Analysis needs to be moved here.'
+            }
         }
         stage('Unit Test'){
-            echo 'Unit Test needs to be moved here.'
+            steps {
+                echo 'Unit Test needs to be moved here.'
+            }
         }
 
         stage ('Deploy'){
@@ -37,7 +41,9 @@ stages{
             }
         }
         stage('Integrations Test'){
-            echo 'Integrations Test needs to be moved here.'
+            steps {
+                echo 'Integrations Test needs to be moved here.'
+            }
         }
     }
 }
