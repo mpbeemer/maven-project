@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        sh "cp **/target/*.war ec2-user@${params.tomcat_dev}:/home/mpbeemer/projects/tomcat-staging/webapps"
+                        sh "cp **/target/*.war /home/mpbeemer/projects/tomcat-staging/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        sh "cp **/target/*.war ec2-user@${params.tomcat_prod}:/home/mpbeemer/projects/tomcat-prod/webapps"
+                        sh "cp **/target/*.war /home/mpbeemer/projects/tomcat-prod/webapps"
                     }
                 }
             }
