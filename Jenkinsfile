@@ -34,24 +34,28 @@ stages{
             }
         }
 
-        stage ('Deploy'){
-            steps {
-                sh 'mvn package'
-            }
-            post {
-                success {
-                    sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-staging/webapps"
-                    input 'Promote to production?'
-                    sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-prod/webapps"
+        stage ('Deployment and Integration Testing'){
+            parallel{
+                stage ('Deploy'){
+                    steps {
+                        sh 'mvn package'
+                    }
+                    post {
+                        success {
+                            sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-staging/webapps"
+                            input 'Promote to production?'
+                            sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-prod/webapps"
+                        }
+                        failure {
+                            echo 'Unable to deply - packaging failed.'
+                        }
+                    }
                 }
-                failure {
-                    echo 'Unable to deply - packaging failed.'
+                stage('Integrations Test'){
+                    steps {
+                        sh 'mvn verify'
+                    }
                 }
-            }
-        }
-        stage('Integrations Test'){
-            steps {
-                sh 'mvn verify'
             }
         }
     }
