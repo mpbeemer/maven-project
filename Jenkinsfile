@@ -23,19 +23,15 @@ stages{
             }
         }
 
-        stage ('Deployments'){
-            parallel{
-                stage ('Deploy to Staging'){
-                    steps {
-                        sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-staging/webapps"
-                    }
-                }
+        stage('Code Analysis'){
+        }
+        stage('Unit Test'){
+        }
 
-                stage ("Deploy to Production"){
-                    steps {
-                        sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-prod/webapps"
-                    }
-                }
+        stage ('Deploy'){
+            steps {
+                sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-staging/webapps"
+                sh "cp -f **/target/*.war /home/mpbeemer/projects/tomcat-prod/webapps"
             }
         }
     }
